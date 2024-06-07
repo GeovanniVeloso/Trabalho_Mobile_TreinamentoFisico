@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Trabalho_Mobile_TreinamentoFisico</string>
+    <string name="date">Data do Treino</string>
+    <string name="muscGroup">Grupo Muscular</string>
+    <string name="time">Duração em Minutos</string>
+    <string name="exercise">Exercícios</string>
+    <string name="place">Academia</string>
+    <string name="Register">Cadastrar</string>
+    <string name="Delete">Excluir</string>
+    <string name="Update">Modificar</string>
+    <string name="Search">Procurar</string>
+    <string name="List">Listar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
