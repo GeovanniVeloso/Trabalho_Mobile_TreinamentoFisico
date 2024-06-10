@@ -6,7 +6,6 @@ public class TreinoAcademia extends Treino{
 
     private String Academia;
 
-
     @Override
     public String toString() {
         return "Treino feito em "+getDate()+" na "+Academia+" para trabalhar "+getMuscularGroup();
