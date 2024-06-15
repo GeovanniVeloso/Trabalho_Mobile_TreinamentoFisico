@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trabalho_Mobile_TreinamentoFisico</string>
+    <string name="app_name">Treinamento Fisico</string>
     <string name="date">Data do Treino</string>
     <string name="muscGroup">Grupo Muscular</string>
     <string name="time">Duração em Minutos</string>

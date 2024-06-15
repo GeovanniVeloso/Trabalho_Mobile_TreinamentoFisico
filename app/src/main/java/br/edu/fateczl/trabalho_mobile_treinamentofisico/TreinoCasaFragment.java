@@ -1,7 +1,5 @@
 package br.edu.fateczl.trabalho_mobile_treinamentofisico;
 
-import static android.provider.SyncStateContract.Helpers.update;
-
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,10 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 import controller.TreinoCasaController;
-import model.TreinoAcademia;
 import model.TreinoCasa;
 import persistance.TreinoCasaDAO;
 
@@ -51,6 +47,7 @@ public class TreinoCasaFragment extends Fragment {
 
         TCC = new TreinoCasaController(new TreinoCasaDAO(this.getContext()));
 
+
         btRegTC.setOnClickListener(op -> register());
         btUpTC.setOnClickListener(op -> update());
 
@@ -58,25 +55,34 @@ public class TreinoCasaFragment extends Fragment {
     }
 
     private void update() {
-        TreinoCasa tc = create();
-        try {
-            TCC.update(tc);
-            Toast.makeText(view.getContext(), "Treino atualizado com sucesso", Toast.LENGTH_LONG).show();
-        } catch (SQLException e) {
-            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        boolean teste = testFields();
+        if(teste){
+            TreinoCasa tc = create();
+            try {
+                TCC.update(tc);
+                Toast.makeText(view.getContext(), "Treino atualizado com sucesso", Toast.LENGTH_LONG).show();
+            } catch (SQLException e) {
+                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            clearFields();
+        }else{
+            Toast.makeText(view.getContext(), "Preencha todos os campos antes de continuar.", Toast.LENGTH_SHORT).show();
         }
     }
     private void register() {
-
-        TreinoCasa ta = create();
-
-        try {
-            TCC.insert(ta);
-            Toast.makeText(view.getContext(), "Treino salvo com sucesso", Toast.LENGTH_LONG).show();
-        } catch (SQLException e) {
-            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        boolean teste = testFields();
+        if(teste == true){
+            TreinoCasa ta = create();
+            try {
+                TCC.insert(ta);
+                Toast.makeText(view.getContext(), "Treino salvo com sucesso", Toast.LENGTH_LONG).show();
+            } catch (SQLException e) {
+                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            clearFields();
+        }else{
+            Toast.makeText(view.getContext(), "Preencha todos os campos antes de continuar.", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private TreinoCasa create() {
@@ -91,5 +97,21 @@ public class TreinoCasaFragment extends Fragment {
         return tc;
     }
 
+    private boolean testFields() {
+        if(!(etDateTC.getText().toString().isEmpty()) &&
+                !(etMuscTC.getText().toString().isEmpty()) &&
+                !(etExTC.getText().toString().isEmpty()) &&
+                !(etTimeTC.getText().toString().isEmpty())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
+    private void clearFields(){
+        etDateTC.setText("");
+        etMuscTC.setText("");
+        etExTC.setText("");
+        etTimeTC.setText("");
+    }
 }

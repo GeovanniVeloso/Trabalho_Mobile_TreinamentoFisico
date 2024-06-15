@@ -57,13 +57,14 @@ public class SearchFragment extends Fragment {
     private void search() {
         if (!etDateSC.getText().toString().isEmpty()){
             if (rb01Search.isChecked()){
-                TreinoAcademia ta = new TreinoAcademia();
-                ta.setId(TAC.createId(etDateSC.getText().toString()));
                 TAC = new TreinoAcademiaController(new TreinoAcademiaDAO(this.getContext()));
+                TreinoAcademia ta = new TreinoAcademia();
+                String teste = etDateSC.getText().toString();
+                ta.setId(TAC.createId(teste));
                 try {
                     TreinoAcademia treino = TAC.search(ta);
-                    if(treino != null){
-                        tvResSC.setText(ta.toString());
+                    if(treino.getId() != 0){
+                        tvResSC.setText(treino.toString());
                     }else{
                         Toast.makeText(view.getContext(), "Treino Não Encontrado", Toast.LENGTH_SHORT).show();
                     }
@@ -71,13 +72,13 @@ public class SearchFragment extends Fragment {
                     Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else if (rb02Search.isChecked()) {
+                TCC = new TreinoCasaController(new TreinoCasaDAO(this.getContext()));
                 TreinoCasa tc = new TreinoCasa();
                 tc.setId(TCC.createId(etDateSC.getText().toString()));
-                TCC = new TreinoCasaController(new TreinoCasaDAO(this.getContext()));
                 try {
                     TreinoCasa treino = TCC.search(tc);
-                    if(treino != null){
-                        tvResSC.setText(tc.toString());
+                    if(treino.getId() != 0){
+                        tvResSC.setText(treino.toString());
                     }else{
                         Toast.makeText(view.getContext(), "Treino Não Encontrado", Toast.LENGTH_SHORT).show();
                     }

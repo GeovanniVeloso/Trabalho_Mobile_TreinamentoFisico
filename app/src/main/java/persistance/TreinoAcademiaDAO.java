@@ -72,6 +72,7 @@ public class TreinoAcademiaDAO implements ITreinoAcademiaDAO, ICRUD<TreinoAcadem
     @SuppressLint("Range")
     @Override
     public TreinoAcademia findOne(TreinoAcademia treinoAcademia) throws SQLException {
+        TreinoAcademia ta = new TreinoAcademia();
         String query = "SELECT " +
                 "treino.id , treino.date , treino.muscularGroup , treino.exercises , treinoacademia.academia " +
                 "FROM treino, treinoacademia " +
@@ -85,16 +86,16 @@ public class TreinoAcademiaDAO implements ITreinoAcademiaDAO, ICRUD<TreinoAcadem
         }
 
         if(!cursor.isAfterLast()){
-            treinoAcademia.setId(cursor.getInt(cursor.getColumnIndex("id")));
-            treinoAcademia.setDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex("date"))));
-            treinoAcademia.setMuscularGroup(cursor.getString(cursor.getColumnIndex("muscularGroup")));
-            treinoAcademia.setExercises(cursor.getString(cursor.getColumnIndex("exercises")));
-            treinoAcademia.setAcademia(cursor.getString(cursor.getColumnIndex("academia")));
+            ta.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            ta.setDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex("date"))));
+            ta.setMuscularGroup(cursor.getString(cursor.getColumnIndex("muscularGroup")));
+            ta.setExercises(cursor.getString(cursor.getColumnIndex("exercises")));
+            ta.setAcademia(cursor.getString(cursor.getColumnIndex("academia")));
         }
 
         cursor.close();
 
-        return treinoAcademia;
+        return ta;
     }
 
     @SuppressLint("Range")

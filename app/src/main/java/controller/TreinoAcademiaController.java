@@ -22,7 +22,8 @@ public class TreinoAcademiaController implements IController<TreinoAcademia> {
         }
 
         TreinoAcademia ta = search(treinoAcademia);
-        if(ta != null){
+
+        if(ta.getId() != 0){
             throw new RuntimeException("Treino com data já cadastrada");
         }else{
             TADAO.insert(treinoAcademia);
@@ -38,7 +39,12 @@ public class TreinoAcademiaController implements IController<TreinoAcademia> {
             TADAO.open();
         }
 
-        TADAO.update(treinoAcademia);
+        TreinoAcademia ta = search(treinoAcademia);
+        if(ta.getId() == 0){
+            throw new RuntimeException("Treino não cadastrado.");
+        }else{
+            TADAO.update(treinoAcademia);
+        }
 
         TADAO.close();
     }
@@ -48,9 +54,12 @@ public class TreinoAcademiaController implements IController<TreinoAcademia> {
         if (TADAO.open() == null){
             TADAO.open();
         }
-
-        TADAO.delete(treinoAcademia);
-
+        TreinoAcademia ta = search(treinoAcademia);
+        if(ta.getId() == 0){
+            throw new RuntimeException("Treino não cadastrado.");
+        }else{
+            TADAO.delete(treinoAcademia);
+        }
         TADAO.close();
     }
 

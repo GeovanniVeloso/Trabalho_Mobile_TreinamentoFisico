@@ -21,7 +21,7 @@ public class TreinoCasaController implements IController<TreinoCasa> {
             TCDAO.open();
         }
         TreinoCasa tc = search(treinoCasa);
-        if (tc != null){
+        if (tc.getId() != 0){
             throw new RuntimeException("Treino com data já cadastrada");
         }else{
             TCDAO.insert(treinoCasa);
@@ -35,7 +35,14 @@ public class TreinoCasaController implements IController<TreinoCasa> {
         if(TCDAO.open() == null){
             TCDAO.open();
         }
-        TCDAO.update(treinoCasa);
+
+        TreinoCasa tc =  search(treinoCasa);
+
+        if (tc.getId() == 0){
+            throw new SQLException("Treino não Cadastrado");
+        }else {
+            TCDAO.update(treinoCasa);
+        }
 
         TCDAO.close();
     }
@@ -45,7 +52,14 @@ public class TreinoCasaController implements IController<TreinoCasa> {
         if(TCDAO.open() == null){
             TCDAO.open();
         }
-        TCDAO.delete(treinoCasa);
+
+        TreinoCasa tc =  search(treinoCasa);
+
+        if (tc.getId() == 0){
+            throw new SQLException("Treino não Cadastrado");
+        }else {
+            TCDAO.delete(treinoCasa);
+        }
 
         TCDAO.close();
     }

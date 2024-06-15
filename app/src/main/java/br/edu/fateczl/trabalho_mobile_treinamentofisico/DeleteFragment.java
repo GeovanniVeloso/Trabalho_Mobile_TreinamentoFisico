@@ -1,7 +1,5 @@
 package br.edu.fateczl.trabalho_mobile_treinamentofisico;
 
-import static java.nio.file.Files.delete;
-
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,7 +16,6 @@ import java.sql.SQLException;
 
 import controller.TreinoAcademiaController;
 import controller.TreinoCasaController;
-import model.Treino;
 import model.TreinoAcademia;
 import model.TreinoCasa;
 import persistance.TreinoAcademiaDAO;
@@ -56,28 +53,39 @@ public class DeleteFragment extends Fragment {
         return view;
     }
 
-    private void delete() {
+    private boolean testFields() {
+        boolean teste = etDateDL.getText().toString().isEmpty() ||
+                etMuscDL.getText().toString().isEmpty();
 
-        if(rb01Del.isChecked()){
-            TreinoAcademia ta = createTA();
-            TAC = new TreinoAcademiaController(new TreinoAcademiaDAO(this.getContext()));
-            try {
-                TAC.delete(ta);
-                Toast.makeText(view.getContext(), "Treino Removido Com Sucesso", Toast.LENGTH_SHORT).show();
-            } catch (SQLException e) {
-                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }else if (rb02Del.isChecked()){
-            TreinoCasa tc = createTC();
-            TCC = new TreinoCasaController(new TreinoCasaDAO(this.getContext()));
-            try {
-                TCC.delete(tc);
-                Toast.makeText(view.getContext(), "Treino Removido Com Sucesso", Toast.LENGTH_SHORT).show();
-            } catch (SQLException e) {
-                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        return !teste;
+    }
+
+    private void delete() {
+        boolean teste = testFields();
+        if(teste == true){
+            if(rb01Del.isChecked()){
+                TreinoAcademia ta = createTA();
+                TAC = new TreinoAcademiaController(new TreinoAcademiaDAO(this.getContext()));
+                try {
+                    TAC.delete(ta);
+                    Toast.makeText(view.getContext(), "Treino Removido Com Sucesso", Toast.LENGTH_SHORT).show();
+                } catch (SQLException e) {
+                    Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }else if (rb02Del.isChecked()){
+                TreinoCasa tc = createTC();
+                TCC = new TreinoCasaController(new TreinoCasaDAO(this.getContext()));
+                try {
+                    TCC.delete(tc);
+                    Toast.makeText(view.getContext(), "Treino Removido Com Sucesso", Toast.LENGTH_SHORT).show();
+                } catch (SQLException e) {
+                    Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(view.getContext(), "Selecione o tipo de treino", Toast.LENGTH_SHORT).show();
             }
         }else{
-            Toast.makeText(view.getContext(), "Selecione o tipo de treino", Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show();
         }
     }
 

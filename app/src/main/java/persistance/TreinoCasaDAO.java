@@ -72,6 +72,8 @@ public class TreinoCasaDAO implements ITreinoCasaDAO, ICRUD<TreinoCasa> {
     @Override
     public TreinoCasa findOne(TreinoCasa treinoCasa) throws SQLException {
 
+        TreinoCasa tc = new TreinoCasa();
+
         String query = "SELECT " +
                 "t.id , t.date , t.muscularGroup , t.exercises , c.time " +
                 "FROM treino t, treinocasa c " +
@@ -85,16 +87,16 @@ public class TreinoCasaDAO implements ITreinoCasaDAO, ICRUD<TreinoCasa> {
         }
 
         if(!cursor.isAfterLast()){
-            treinoCasa.setId(cursor.getInt(cursor.getColumnIndex("id")));
-            treinoCasa.setDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex("date"))));
-            treinoCasa.setMuscularGroup(cursor.getString(cursor.getColumnIndex("muscularGroup")));
-            treinoCasa.setExercises(cursor.getString(cursor.getColumnIndex("exercises")));
-            treinoCasa.setTime(cursor.getInt(cursor.getColumnIndex("time")));
+            tc.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            tc.setDate(LocalDate.parse(cursor.getString(cursor.getColumnIndex("date"))));
+            tc.setMuscularGroup(cursor.getString(cursor.getColumnIndex("muscularGroup")));
+            tc.setExercises(cursor.getString(cursor.getColumnIndex("exercises")));
+            tc.setTime(cursor.getInt(cursor.getColumnIndex("time")));
         }
 
         cursor.close();
 
-        return treinoCasa;
+        return tc;
     }
 
     @SuppressLint("Range")

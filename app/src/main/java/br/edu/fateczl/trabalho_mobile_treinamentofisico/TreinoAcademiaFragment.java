@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 import controller.TreinoAcademiaController;
 import model.TreinoAcademia;
@@ -46,31 +45,42 @@ public class TreinoAcademiaFragment extends Fragment {
         btUpTA = view.findViewById(R.id.btUpTA);
 
         TAC = new TreinoAcademiaController(new TreinoAcademiaDAO(this.getContext()));
-
         btRegTA.setOnClickListener( op -> register());
         btUpTA.setOnClickListener( op -> update());
 
         return view;
     }
 
+
     private void update() {
-        TreinoAcademia ta = create();
-        try{
-            TAC.update(ta);
-            Toast.makeText(view.getContext(), "Treino atualizado com sucesso", Toast.LENGTH_LONG).show();
-        }catch (SQLException e){
-            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        boolean teste = testCampos();
+        if(teste){
+            TreinoAcademia ta = create();
+            try{
+                TAC.update(ta);
+                Toast.makeText(view.getContext(), "Treino atualizado com sucesso", Toast.LENGTH_LONG).show();
+            }catch (SQLException e){
+                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            clearFields();
+        }else{
+            Toast.makeText(view.getContext(), "Preencha todos os campos antes de continuar.", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void register() {
-
-        TreinoAcademia ta = create();
-
-        try{
-            TAC.insert(ta);
-            Toast.makeText(view.getContext(), "Treino salvo com sucesso", Toast.LENGTH_LONG).show();
-        }catch (SQLException e){
-            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        boolean teste = testCampos();
+        if(teste){
+            TreinoAcademia ta = create();
+            try{
+                TAC.insert(ta);
+                Toast.makeText(view.getContext(), "Treino salvo com sucesso", Toast.LENGTH_LONG).show();
+            }catch (SQLException e){
+                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            clearFields();
+        }else{
+            Toast.makeText(view.getContext(), "Preencha todos os campos antes de continuar.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -84,5 +94,21 @@ public class TreinoAcademiaFragment extends Fragment {
         ta.setAcademia(etLocalTA.getText().toString());
 
         return ta;
+    }
+
+    private void clearFields() {
+        etDateTA.setText("");
+        etMuscTA.setText("");
+        etLocalTA.setText("");
+        etExTA.setText("");
+    }
+
+    private Boolean testCampos() {
+        boolean teste = etDateTA.getText().toString().isEmpty() ||
+                etMuscTA.getText().toString().isEmpty() ||
+                etLocalTA.getText().toString().isEmpty() ||
+                etExTA.getText().toString().isEmpty();
+
+        return !teste;
     }
 }
