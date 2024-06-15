@@ -62,60 +62,6 @@ public class TreinoAcademiaFragment extends Fragment {
             Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
-    private TreinoAcademia create() {
-        TreinoAcademia ta = new TreinoAcademia();
-
-        ta.setId(createId());
-        ta.setDate(createDate());
-        ta.setMuscularGroup(etMuscTA.getText().toString());
-        ta.setExercises(etExTA.getText().toString());
-        ta.setAcademia(etLocalTA.getText().toString());
-
-        return ta;
-    }
-
-    private LocalDate createDate() {
-        String date = etDateTA.getText().toString();
-        String split[] = date.split("");
-        String Year = "";
-        String Month = "";
-        String Day = "";
-        for (int i = 0; i < split.length; i ++){
-            if (i < 4) {
-                Year += split[i];
-            }else{
-                if(i < 6){
-                    Month += split[i];
-                }else{
-                    Day += split[i];
-                }
-            }
-        }
-        LocalDate data = LocalDate.of(Integer.parseInt(Year),Integer.parseInt(Month), Integer.parseInt(Day));
-        return data;
-    }
-    private int createId(){
-        String date = etDateTA.getText().toString();
-        String split[] = date.split("");
-        String Year = "";
-        String Month = "";
-        String Day = "";
-        for (int i = 0; i < split.length; i++){
-            if (i < 4) {
-                Year += split[i];
-            }else{
-                if(i < 6){
-                    Month += split[i];
-                }else{
-                    Day += split[i];
-                }
-            }
-        }
-        date = Year + Month + Day;
-        return Integer.parseInt(date);
-    }
-
     private void register() {
 
         TreinoAcademia ta = create();
@@ -126,6 +72,17 @@ public class TreinoAcademiaFragment extends Fragment {
         }catch (SQLException e){
             Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
+    }
 
+    private TreinoAcademia create() {
+        TreinoAcademia ta = new TreinoAcademia();
+
+        ta.setId(TAC.createId(etDateTA.getText().toString()));
+        ta.setDate(TAC.createDate(etDateTA.getText().toString()));
+        ta.setMuscularGroup(etMuscTA.getText().toString());
+        ta.setExercises(etExTA.getText().toString());
+        ta.setAcademia(etLocalTA.getText().toString());
+
+        return ta;
     }
 }

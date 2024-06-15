@@ -10,6 +10,6 @@
     <string name="Update">Modificar</string>
     <string name="Search">Procurar</string>
     <string name="List">Listar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TA">Treino Academia</string>
+    <string name="TC">Treino Casa</string>
 </resources>

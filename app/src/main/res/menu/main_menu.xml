@@ -2,9 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item_02"
-        android:title="TreinoCasa" />
-    <item
         android:id="@+id/item_01"
-        android:title="TreinoAcademia" />
+        android:title="@string/TA" />
+    <item
+        android:id="@+id/item_02"
+        android:title="@string/TC" />
+    <item
+        android:id="@+id/item_03"
+        android:title="@string/Delete" />
+    <item
+        android:id="@+id/item_04"
+        android:title="@string/Search" />
+    <item
+        android:id="@+id/item_05"
+        android:title="@string/List" />
 </menu>

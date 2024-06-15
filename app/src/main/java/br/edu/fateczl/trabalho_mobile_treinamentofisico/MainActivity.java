@@ -39,8 +39,14 @@ public class MainActivity extends AppCompatActivity {
         String type = bundle.getString("type");
         if(type.equals("Academia")){
             fragment = new TreinoAcademiaFragment();
-        }else{
+        }else if (type.equals("Casa")){
             fragment = new TreinoCasaFragment();
+        } else if (type.equals("Delete")) {
+            fragment = new DeleteFragment();
+        }else if (type.equals("List")){
+            fragment = new ListFragment();
+        } else if (type.equals("Search")) {
+            fragment = new SearchFragment();
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -68,6 +74,27 @@ public class MainActivity extends AppCompatActivity {
         }
         if(id == R.id.item_02){
             bundle.putString("type","Casa");
+            i.putExtras(bundle);
+            this.startActivity(i);
+            this.finish();
+            return true;
+        }
+        if(id == R.id.item_03){
+            bundle.putString("type","Delete");
+            i.putExtras(bundle);
+            this.startActivity(i);
+            this.finish();
+            return true;
+        }
+        if (id == R.id.item_04){
+            bundle.putString("type","Search");
+            i.putExtras(bundle);
+            this.startActivity(i);
+            this.finish();
+            return true;
+        }
+        if (id == R.id.item_05){
+            bundle.putString("type","List");
             i.putExtras(bundle);
             this.startActivity(i);
             this.finish();

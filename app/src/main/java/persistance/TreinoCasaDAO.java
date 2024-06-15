@@ -59,7 +59,7 @@ public class TreinoCasaDAO implements ITreinoCasaDAO, ICRUD<TreinoCasa> {
     @Override
     public void update(TreinoCasa treinoCasa) throws SQLException {
         db.update("treino", getContentValues(treinoCasa, true),"id = " + treinoCasa.getId(), null);
-        db.update("treinocasa", getContentValues(treinoCasa, true),"id = " + treinoCasa.getId(), null);
+        db.update("treinocasa", getContentValues(treinoCasa, false),"id = " + treinoCasa.getId(), null);
     }
 
     @Override
@@ -73,10 +73,10 @@ public class TreinoCasaDAO implements ITreinoCasaDAO, ICRUD<TreinoCasa> {
     public TreinoCasa findOne(TreinoCasa treinoCasa) throws SQLException {
 
         String query = "SELECT " +
-                "treino.id , treino.date , treino.muscularGroup , treino.exercises , treinocasa.time " +
-                "FROM treino , treinocasa " +
-                "WHERE treino.id = treinocasa.id " +
-                "AND treino.id = " + treinoCasa.getId();
+                "t.id , t.date , t.muscularGroup , t.exercises , c.time " +
+                "FROM treino t, treinocasa c " +
+                "WHERE t.id = c.id " +
+                "AND t.id = " + treinoCasa.getId();
 
         Cursor cursor = db.rawQuery(query, null);
 

@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import model.TreinoAcademia;
@@ -20,7 +21,13 @@ public class TreinoAcademiaController implements IController<TreinoAcademia> {
             TADAO.open();
         }
 
-        TADAO.insert(treinoAcademia);
+        TreinoAcademia ta = search(treinoAcademia);
+        if(ta != null){
+            throw new RuntimeException("Treino com data já cadastrada");
+        }else{
+            TADAO.insert(treinoAcademia);
+        }
+
 
         TADAO.close();
     }
@@ -62,4 +69,45 @@ public class TreinoAcademiaController implements IController<TreinoAcademia> {
         }
         return TADAO.findAll();
     }
+
+    public int createId(String data){
+        String split[] = data.split("");
+        String Year = "";
+        String Month = "";
+        String Day = "";
+        for (int i = 0; i < split.length; i++){
+            if (i < 4) {
+                Year += split[i];
+            }else{
+                if(i < 6){
+                    Month += split[i];
+                }else{
+                    Day += split[i];
+                }
+            }
+        }
+        data = Year + Month + Day;
+        return Integer.parseInt(data);
+    }
+
+    public LocalDate createDate(String date) {
+        String split[] = date.split("");
+        String Year = "";
+        String Month = "";
+        String Day = "";
+        for (int i = 0; i < split.length; i ++){
+            if (i < 4) {
+                Year += split[i];
+            }else{
+                if(i < 6){
+                    Month += split[i];
+                }else{
+                    Day += split[i];
+                }
+            }
+        }
+        LocalDate data = LocalDate.of(Integer.parseInt(Year),Integer.parseInt(Month), Integer.parseInt(Day));
+        return data;
+    }
+
 }

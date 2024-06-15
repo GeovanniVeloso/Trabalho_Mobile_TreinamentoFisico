@@ -11,6 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+import controller.TreinoCasaController;
+import model.TreinoAcademia;
+import model.TreinoCasa;
+import persistance.TreinoCasaDAO;
 
 public class TreinoCasaFragment extends Fragment {
 
@@ -26,10 +35,12 @@ public class TreinoCasaFragment extends Fragment {
     private Button btRegTC;
     private Button btUpTC;
 
+    private TreinoCasaController TCC;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_treino_casa, container, false);
+        view = inflater.inflate(R.layout.fragment_treino_casa, container, false);
 
         etDateTC = view.findViewById(R.id.etDateTC);
         etMuscTC = view.findViewById(R.id.etMuscTC);
@@ -38,15 +49,47 @@ public class TreinoCasaFragment extends Fragment {
         btRegTC = view.findViewById(R.id.btRegTC);
         btUpTC = view.findViewById(R.id.btUpTC);
 
-        btRegTC.setOnClickListener( op -> register());
-        btUpTC.setOnClickListener( op -> update());
+        TCC = new TreinoCasaController(new TreinoCasaDAO(this.getContext()));
+
+        btRegTC.setOnClickListener(op -> register());
+        btUpTC.setOnClickListener(op -> update());
 
         return view;
     }
 
     private void update() {
+        TreinoCasa tc = create();
+        try {
+            TCC.update(tc);
+            Toast.makeText(view.getContext(), "Treino atualizado com sucesso", Toast.LENGTH_LONG).show();
+        } catch (SQLException e) {
+            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    private void register() {
+
+        TreinoCasa ta = create();
+
+        try {
+            TCC.insert(ta);
+            Toast.makeText(view.getContext(), "Treino salvo com sucesso", Toast.LENGTH_LONG).show();
+        } catch (SQLException e) {
+            Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
-    private void register() {
+    private TreinoCasa create() {
+        TreinoCasa tc = new TreinoCasa();
+
+        tc.setId(TCC.createId(etDateTC.getText().toString()));
+        tc.setDate(TCC.createDate(etDateTC.getText().toString()));
+        tc.setMuscularGroup(etMuscTC.getText().toString());
+        tc.setExercises(etExTC.getText().toString());
+        tc.setTime(Integer.parseInt(etTimeTC.getText().toString()));
+
+        return tc;
     }
+
+
 }
