@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import controller.TreinoCasaController;
 import model.TreinoCasa;
-import persistance.TreinoCasaDAO;
+import persistence.TreinoCasaDAO;
 
 public class TreinoCasaFragment extends Fragment {
 

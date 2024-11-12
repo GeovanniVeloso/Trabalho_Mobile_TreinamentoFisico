@@ -19,8 +19,8 @@ import controller.TreinoAcademiaController;
 import controller.TreinoCasaController;
 import model.TreinoAcademia;
 import model.TreinoCasa;
-import persistance.TreinoAcademiaDAO;
-import persistance.TreinoCasaDAO;
+import persistence.TreinoAcademiaDAO;
+import persistence.TreinoCasaDAO;
 
 public class ListFragment extends Fragment {
 

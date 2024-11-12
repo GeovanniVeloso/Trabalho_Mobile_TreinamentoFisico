@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import model.TreinoAcademia;
-import persistance.TreinoAcademiaDAO;
+import persistence.TreinoAcademiaDAO;
 
 public class TreinoAcademiaController implements IController<TreinoAcademia> {
 
