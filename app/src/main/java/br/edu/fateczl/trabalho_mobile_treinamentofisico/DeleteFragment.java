@@ -18,8 +18,8 @@ import controller.TreinoAcademiaController;
 import controller.TreinoCasaController;
 import model.TreinoAcademia;
 import model.TreinoCasa;
-import persistence.TreinoAcademiaDAO;
-import persistence.TreinoCasaDAO;
+import persistance.TreinoAcademiaDAO;
+import persistance.TreinoCasaDAO;
 
 public class DeleteFragment extends Fragment {
 

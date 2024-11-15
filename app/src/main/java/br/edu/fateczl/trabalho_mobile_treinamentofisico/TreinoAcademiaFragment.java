@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import controller.TreinoAcademiaController;
 import model.TreinoAcademia;
-import persistence.TreinoAcademiaDAO;
+import persistance.TreinoAcademiaDAO;
 
 public class TreinoAcademiaFragment extends Fragment {
 
