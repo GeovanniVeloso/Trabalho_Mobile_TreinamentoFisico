@@ -1,10 +1,10 @@
-package persistance;
+package persistence;
 
 import java.sql.SQLException;
 
 public interface ITreinoAcademiaDAO {
 
-    public TreinoAcademiaDAO open()throws SQLException;
+    public void open()throws SQLException;
     public void close()throws SQLException;
 
 }
